@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visual Storyteller - Madhur-Vani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vesper+Libre:wght@400;500;700;900&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'story-deep': '#1a2a3a',
+                        'story-forest': '#1e3a34',
+                        'story-gold': '#d4af37',
+                        'story-emerald': '#10b981',
+                        'story-accent': '#8b5cf6',
+                        'bg-glass': 'rgba(255, 255, 255, 0.05)',
+                    },
+                    fontFamily: {
+                        'display': ['"Vesper Libre"', 'serif'],
+                        'body': ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: radial-gradient(circle at top right, #1e3a34, #1a2a3a);
+            background-attachment: fixed;
+            color: #e2e8f0;
+            scrollbar-width: thin;
+            scrollbar-color: #d4af37 transparent;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #d4af37;
+            border-radius: 10px;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .choice-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #1e3a34 0%, #1a2a3a 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .choice-btn:hover {
+            border-color: #d4af37;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .choice-btn:active {
+            transform: scale(0.98);
+        }
+
+        .text-glow {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .image-frame {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-story-gold selection:text-story-deep">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 glass-panel border-b border-white/10 px-6 py-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="font-display text-2xl md:text-3xl font-bold tracking-tight text-glow text-story-gold">
+                The Visual Storyteller
+            </h1>
+            <div class="hidden md:flex flex-col items-end text-[10px] uppercase tracking-widest text-gray-400">
+                <span>Value: Kindness</span>
+                <span>Theme: Madhur-Vani</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-20 px-4 md:px-8 max-w-4xl mx-auto space-y-12 min-h-screen">
+        
+        <!-- Intro / Front Page Card -->
+        <section class="story-card opacity-0 animate-fade-in glass-panel rounded-3xl p-8 md:p-12 text-center space-y-6">
+            <div class="space-y-2">
+                <h2 class="font-display text-4xl md:text-6xl text-story-gold font-black leading-tight">मधुर-वाणी</h2>
+                <h3 class="text-xl md:text-2xl text-gray-300 font-light italic">(Sweet Speech)</h3>
+            </div>
+            
+            <div class="h-px w-24 bg-gradient-to-r from-transparent via-story-gold to-transparent mx-auto"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-400 font-medium tracking-wide">
+                <div class="space-y-1">
+                    <p>WRITER: <span class="text-white">Dr. Rahul Maity, Ph.D. in Sanskrit</span></p>
+                    <p>PUBLISHER: <span class="text-white underline decoration-story-gold/30">sanskritayanam.com</span></p>
+                </div>
+                <div class="space-y-1">
+                    <p>COPYRIGHT: <span class="text-white">@sanskritayanam</span></p>
+                    <p>THEME: <span class="text-story-gold uppercase">Kindness in Words</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Segment 1 -->
+        <article class="story-card animate-slide-up glass-panel rounded-3xl overflow-hidden">
+            <div class="p-6 md:p-10 space-y-8">
+                <div class="space-y-4">
+                    <p class="text-lg md:text-xl font-medium leading-relaxed text-emerald-100/90">
+                        एकस्मिन् ग्रामे द्वे गृहिण्यौ वसतः स्म - सुनन्दा मालिनी च। तयोः पुत्राः अपि सहैव क्रीडन्ति स्म। एकदा उद्याने क्रीडन्तः पुत्राः कलहं कृतवन्तः।
+                    </p>
+                    <p class="text-base text-gray-400 italic">
+                        (In a village, two housewives lived - Sunanda and Malini. Their sons also played together. Once, while playing in the garden, the sons had a quarrel.)
+                    </p>
+                </div>
+                
+                <div class="image-frame">
+                    <img src="https://opal.google/board/blobs/eed624af-af4f-4359-979b-9185693591a3" alt="The Quarrel in the Garden" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+
+                <div class="space-y-4">
+                    <h4 class="text-xs font-bold uppercase tracking-[0.2em] text-story-gold">How should the story continue?</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button class="choice-btn px-4 py-3 rounded-xl text-sm font-semibold text-white">Sunanda intervenes</button>
+                        <button class="choice-btn px-4 py-3 rounded-xl text-sm font-semibold text-white">Malini intervenes</button>
+                        <button class="choice-btn px-4 py-3 rounded-xl text-sm font-semibold text-white">They wait and watch</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- More segments follow similar pattern -->
+
+    </main>
+
+    <!-- Interactive Elements Script -->
+    <script>
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.add('bg-story-gold', 'text-story-deep');
+                this.innerHTML = '✓ Choice Selected';
+                
+                const parentCard = this.closest('article');
+                const nextCard = parentCard.nextElementSibling;
+                if (nextCard) {
+                    setTimeout(() => {
+                        nextCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

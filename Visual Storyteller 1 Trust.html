@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Visual Storyteller - Farmer & Mongoose</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            deep: '#0f172a',
+                            forest: '#14532d',
+                            gold: '#fbbf24',
+                            emerald: '#10b981',
+                            purple: '#7e22ce',
+                            slate: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Crimson Pro"', 'serif'],
+                        sans: ['"Outfit"', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background: radial-gradient(circle at top, #1e293b 0%, #0f172a 100%);
+            scrollbar-width: thin;
+            scrollbar-color: #fbbf24 #0f172a;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .story-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            border: 2px solid rgba(251, 191, 36, 0.2);
+        }
+        .choice-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .choice-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        .choice-btn:hover::after {
+            left: 100%;
+        }
+        .choice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+    </style>
+</head>
+<body class="text-slate-100 font-sans min-h-screen">
+
+    <!-- Header -->
+    <header class="fixed top-0 w-full z-50 bg-brand-deep/80 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="font-serif text-2xl md:text-3xl font-bold bg-gradient-to-r from-brand-gold to-yellow-200 bg-clip-text text-transparent">
+                The Visual Storyteller
+            </h1>
+            <div class="hidden md:flex items-center space-x-2 text-brand-gold/80 text-sm">
+                <span class="animate-pulse">●</span>
+                <span class="tracking-widest uppercase">Live Narrative</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="pt-24 pb-12 px-4 md:px-6 max-w-4xl mx-auto">
+        <div id="story-feed" class="space-y-12">
+            
+            <!-- Segment 1 -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 0.1s;">
+                <div class="glass-card p-6 md:p-8 rounded-3xl">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase mb-2 block">Part I: The Departure</span>
+                        <p class="text-lg md:text-xl leading-relaxed font-light text-slate-200">
+                            पुरा एकस्मिन् ग्रामे एकः कृषकः वसति स्म। तस्य एका धार्मिका पत्नी एकः सुकुमारः पुत्रः च आस्ताम्। कृषकस्य गृहे एकः नकुलः (Mongoose) अपि आसीत्। कृषकः तं नकुलं पुत्रवत् स्नेहं करोति स्म। एकदा कृषकस्य पत्नी कलशं नत्वा जलं आनेतुं विहिं गतवती। सा कृषकं अवदत् - "स्वामिन्! अहं बहिः गच्छामि। शिशुः निद्रां करोति। भवान् शिशोः रक्षणं करोतु।"
+                        </p>
+                    </div>
+                    
+                    <div class="story-image-container mb-8 group">
+                        <img src="https://opal.google/board/blobs/1d446745-72bc-45a1-a303-586b1ee00fa2" alt="The Departure" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="text-brand-gold font-medium italic">इदानीं कृषकः किं करोति? (What does the farmer do now?)</p>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button class="choice-btn w-full py-4 px-6 rounded-xl bg-brand-purple text-white font-semibold text-left border border-white/10">
+                                कृषकः कार्यवशात् क्षेत्रं गन्तुं निर्णयं करोति।
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Segment 2 -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 0.3s;">
+                <div class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-brand-emerald">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold tracking-widest text-brand-emerald uppercase mb-2 block">Part II: Guarding the Home</span>
+                        <p class="text-lg md:text-xl leading-relaxed font-light text-slate-200">
+                            कृषकः अचिन्तयत् - "नकुलः अस्ति एव। सः शिशोः रक्षणं करिष्यति। अहम् अल्पकालं क्षेत्रं गत्वा आगच्छामि।" इति विचिन्त्य सः बहिः गतवान्। तस्मिन् एव समये कश्चन कृष्णसर्पः (Black Snake) रन्ध्रात् निष्क्रम्य शिशोः समीपं गन्तुं प्रयत्नं अकरोत्। नकुलः सर्पं अपश्यत्।
+                        </p>
+                    </div>
+                    
+                    <div class="story-image-container mb-8 group">
+                        <img src="https://opal.google/board/blobs/3cfa8f6b-5b7b-454c-9119-377dc9a3a8c1" alt="Guarding the Home" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="text-brand-gold font-medium italic">नकुलः इदानीं किं करोति? (What does the mongoose do now?)</p>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button class="choice-btn w-full py-4 px-6 rounded-xl bg-brand-emerald text-white font-semibold text-left border border-white/10">
+                                नकुलः सर्पेण सह युद्धं करोति।
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Segment 3 -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 0.5s;">
+                <div class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-brand-gold">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase mb-2 block">Part III: The Danger Approaches</span>
+                        <p class="text-lg md:text-xl leading-relaxed font-light text-slate-200">
+                            नकुलः शिशोः रक्षणाय सन्नद्धः अभवत्। सः सर्पेण सह घोरं युद्धं अकरोत्। अन्ततः नकुलः सर्पं मारितवान्, तस्य च खण्डं खण्डं कृतवान्। नकुलस्य मुखं हस्तौ च रक्तेन रञ्जितानि अभवन्। ततः सः द्वारस्य समीपे उपविश्य कृषकस्य आगमनं प्रतीक्षितवान्।
+                        </p>
+                    </div>
+                    
+                    <div class="story-image-container mb-8 group">
+                        <img src="https://opal.google/board/blobs/c4b458b1-6aed-400d-b49f-dcca6a5b3d7b" alt="The Hero Fights" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="text-brand-gold font-medium italic">तदनन्तरं किं भवति? (What happens next?)</p>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button class="choice-btn w-full py-4 px-6 rounded-xl bg-amber-600 text-white font-semibold text-left border border-white/10">
+                                कृषकः नकुलस्य मुखे रक्तं दृष्ट्वा क्रुद्धः भवति।
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Segment 4 -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 0.7s;">
+                <div class="glass-card p-6 md:p-8 rounded-3xl border-l-4 border-red-500">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold tracking-widest text-red-400 uppercase mb-2 block">Part IV: The Hero Waits</span>
+                        <p class="text-lg md:text-xl leading-relaxed font-light text-slate-200">
+                            यदा कृषकः क्षेत्रात् प्रत्यागतवान्, तदा सः द्वारस्थं नकुलं अपश्यत्। नकुलस्य मुखे रक्तेन दृश्यमानेन कृषकः अतीव व्याकुलः अभवत्। सः अचिन्तयत् - "अनेन नकुलेन मम पुत्रः मारितः!" इति। कोपेन अन्धः सः हस्तस्थितं दण्डं नकुलस्य उपरि अक्षि पत। नकुलः तत्रैव मृतः।
+                        </p>
+                    </div>
+                    
+                    <div class="story-image-container mb-8 group">
+                        <img src="https://opal.google/board/blobs/e3ef14df-5cbf-4d0f-ba80-2b8e4a8004a3" alt="Tragic Encounter" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                    </div>
+
+                    <div class="space-y-4">
+                        <p class="text-brand-gold font-medium italic">अतः परं किं भवति? (What happens after this?)</p>
+                        <div class="grid grid-cols-1 gap-3">
+                            <button class="choice-btn w-full py-4 px-6 rounded-xl bg-red-700 text-white font-semibold text-left border border-white/10">
+                                कृषकः अन्तः धावति।
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Segment 5 -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 0.9s;">
+                <div class="glass-card p-6 md:p-8 rounded-3xl">
+                    <div class="mb-6">
+                        <span class="text-xs font-bold tracking-widest text-brand-gold uppercase mb-2 block">Part V: The Rash Decision</span>
+                        <p class="text-lg md:text-xl leading-relaxed font-light text-slate-200">
+                            कृषकः धावन् गृहस्य अन्तः प्रविष्टः। तत्र सः अपश्यत् यत् तस्य पुत्रः सुखेन् निद्रां करोति। तस्य पार्श्वे मृतः सर्पः पतितः आसीत्। एतत् दृष्ट्वा कृषकः समझन् यत् नकुलः तु तस्य पुत्रस्य रक्षणं कृतवान्, किन्तु कोपेन सः स्वामिनि स्वामिभक्तं नकुलं मारितवान्। 
+                        </p>
+                    </div>
+                    
+                    <div class="story-image-container mb-8 group">
+                        <img src="https://opal.google/board/blobs/26571006-661c-483f-9aa8-da811208a5cd" alt="The Discovery" class="w-full h-auto transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
+            </article>
+
+            <!-- Final Segment / Conclusion -->
+            <article class="story-segment opacity-0 animate-fade-in" style="animation-delay: 1.1s;">
+                <div class="bg-gradient-to-br from-brand-slate to-brand-deep p-8 md:p-12 rounded-3xl border border-brand-gold/30 text-center relative overflow-hidden">
+                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10">
+                        <h3 class="font-serif text-3xl md:text-4xl text-brand-gold mb-6 italic">Bitter Regret</h3>
+                        <p class="text-xl md:text-2xl leading-loose font-serif mb-8 text-slate-300">
+                            "अविमृश्यं न कर्तव्यं" <br>
+                            <span class="text-lg opacity-80">(One should not act hastily without thought)</span>
+                        </p>
+                        
+                        <div class="story-image-container mb-8 mx-auto max-w-lg">
+                            <img src="https://opal.google/board/blobs/71f67c7b-79b5-4446-aa2e-715b34d12d19" alt="Final Regret" class="w-full h-auto">
+                        </div>
+
+                        <div class="py-4 border-t border-white/10">
+                            <p class="text-brand-emerald font-bold tracking-widest uppercase">कथा समाप्ता</p>
+                            <p class="text-slate-400 mt-2">The Story is Finished</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <script>
+        // Smooth scroll observation for story cards
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.style.opacity = "1";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-segment').forEach(segment => {
+            observer.observe(segment);
+        });
+
+        // Optional: Interaction feedback for buttons
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.add('ring-2', 'ring-brand-gold', 'ring-offset-2', 'ring-offset-brand-deep');
+                setTimeout(() => {
+                    this.classList.remove('ring-2', 'ring-brand-gold');
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
