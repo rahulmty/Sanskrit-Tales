@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanskrit Story Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Vesper+Libre:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --primary: #0f172a; --accent: #d4af37; --bg: #f8fafc; }
+  body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--primary); padding: 20px; }
+  
+  #library-view { max-width: 1000px; margin: 0 auto; }
+  .header { text-align: center; margin-bottom: 40px; }
+  .title { font-family: 'Vesper Libre', serif; font-size: clamp(28px, 5vw, 42px); color: var(--primary); margin: 0; }
+  .search-bar { width: 100%; max-width: 500px; padding: 14px 24px; border: 2px solid #cbd5e1; border-radius: 99px; font-size: 16px; outline: none; transition: 0.3s; margin-top: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+  .search-bar:focus { border-color: var(--accent); box-shadow: 0 4px 12px rgba(212,175,55,0.2); }
+  
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+  
+  .card-link { text-decoration: none; color: inherit; display: block; }
+  
+  .card { background: white; border-radius: 20px; padding: 35px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 2px solid transparent; transition: all 0.3s ease; text-align: center; height: 100%; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
+  .card:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 12px 20px rgba(212,175,55,0.15); }
+  
+  .card-san { font-family: 'Vesper Libre', serif; font-size: 26px; font-weight: 700; margin: 0; color: #1e293b; line-height: 1.4; }
+</style>
+</head>
+<body>
+
+<div id="library-view">
+  <div class="header">
+    <h1 class="title">Sanskrit Story Library</h1>
+    <input type="text" id="searchInput" class="search-bar" placeholder="Search stories..." onkeyup="filterStories()">
+  </div>
+  <div class="grid" id="storyGrid"></div>
+</div>
+
+<script>
+// EXACT FILENAMES FROM YOUR SCREENSHOT (Ordered 1 to 12)
+const storyFiles = [
+  "Story 1 - परोपकारी वृक्षः (The Giving Tree).html",
+  "Story 2 - उद्यमस्य फलम् (Fruit of Hard Work).html",
+  "Story 3 - क्षमा-शस्त्रम् (The Weapon of Forgiveness).html",
+  "Story 4 - चतुरः शृगालः (The Clever Jackal).html",
+  "Story 5 - मूर्खः मित्रम् (The Foolish Friend).html",
+  "Story 6 - काकस्य उपायः (The Crow's Idea).html",
+  "Story 7 - पिपासितः काकः (The Thirsty Crow).html",
+  "Story 8 - कपोतराजः (The King of Doves).html",
+  "Story 9 - अङ्गुलीयकम् (The Ring).html",
+  "Story 10 - लोभी श्वानः (The Greedy Dog).html",
+  "Story 11 - विद्या-धनम् (The Wealth of Knowledge).html",
+  "Story 12 - सिंहः मूषकः च (The Lion and the Mouse).html"
+];
+
+renderCards(storyFiles);
+
+function renderCards(filesToRender) {
+  const grid = document.getElementById("storyGrid");
+  grid.innerHTML = "";
+  
+  if (filesToRender.length === 0) {
+    grid.innerHTML = "<p style='text-align:center; width:100%; font-weight:600; color:#64748b;'>No stories found.</p>";
+    return;
+  }
+
+  filesToRender.forEach(filename => {
+    // Clean up the title: Removes '.html' AND the 'Story 1 - ' part for a beautiful card!
+    const title = filename.replace('.html', '').replace(/^Story \d+\s*-\s*/, '');
+    
+    const anchor = document.createElement("a");
+    // encodeURI ensures the spaces and brackets don't break the web link
+    anchor.href = encodeURI(filename); 
+    anchor.target = "_blank"; 
+    anchor.className = "card-link";
+    
+    anchor.innerHTML = `
+      <div class="card">
+        <h3 class="card-san">${title}</h3>
+      </div>
+    `;
+    grid.appendChild(anchor);
+  });
+}
+
+function filterStories() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = storyFiles.filter(filename => 
+    filename.toLowerCase().includes(query)
+  );
+  renderCards(filtered);
+}
+</script>
+</body>
+</html>
