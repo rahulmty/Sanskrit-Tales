@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanskrit Story Library - Kids Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root { 
+    --primary: #ff6b9d; 
+    --secondary: #4ecdc4; 
+    --accent: #ffd700; 
+    --warm: #ff9f43; 
+    --purple: #a29bfe;
+    --bg: #fff5f7;
+    --light-bg: #ffffff;
+  }
+  
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body { 
+    font-family: 'Fredoka', sans-serif; 
+    background: linear-gradient(135deg, var(--bg) 0%, #f0e6ff 100%);
+    color: #2d3436; 
+    padding: 20px;
+    min-height: 100vh;
+  }
+  
+  /* Animated background elements */
+  .floating-emoji {
+    position: fixed;
+    font-size: 3rem;
+    opacity: 0.1;
+    animation: float 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .float-1 { top: 10%; left: 5%; animation-delay: 0s; }
+  .float-2 { top: 30%; right: 8%; animation-delay: 1s; }
+  .float-3 { bottom: 20%; left: 10%; animation-delay: 2s; }
+  .float-4 { bottom: 10%; right: 5%; animation-delay: 3s; }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(5deg); }
+  }
+  
+  #library-view { 
+    max-width: 1200px; 
+    margin: 0 auto;
+    animation: slideIn 0.6s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .header { 
+    text-align: center; 
+    margin-bottom: 50px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 107, 157, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .header::before {
+    content: "✨";
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+  }
+  
+  .header::after {
+    content: "🌟";
+    position: absolute;
+    bottom: 15px;
+    right: 20px;
+    font-size: 2rem;
+    opacity: 0.3;
+  }
+  
+  .title { 
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(32px, 6vw, 48px); 
+    color: white; 
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+  
+  .subtitle {
+    color: rgba(255,255,255,0.95);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .search-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .search-bar { 
+    width: 100%; 
+    max-width: 500px; 
+    padding: 16px 28px; 
+    border: 3px solid var(--accent);
+    border-radius: 50px; 
+    font-size: 16px; 
+    font-weight: 600;
+    outline: none; 
+    transition: all 0.3s;
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.25);
+    background: white;
+    color: var(--primary);
+    font-family: 'Fredoka', sans-serif;
+  }
+  
+  .search-bar::placeholder {
+    color: #b0a69e;
+  }
+  
+  .search-bar:focus { 
+    border-color: var(--warm);
+    box-shadow: 0 8px 25px rgba(255, 159, 67, 0.3);
+    transform: scale(1.02);
+  }
+  
+  .sort-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .sort-btn {
+    padding: 10px 16px;
+    border: 2px solid white;
+    background: rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'Fredoka', sans-serif;
+    transition: all 0.3s;
+    font-size: 13px;
+  }
+  
+  .sort-btn:hover {
+    background: white;
+    color: var(--primary);
+    transform: scale(1.05);
+  }
+  
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 28px;
+    margin-bottom: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+  }
+  
+  .card-link { 
+    text-decoration: none; 
+    color: inherit; 
+    display: block;
+    perspective: 1000px;
+  }
+  
+  .card { 
+    background: var(--light-bg);
+    border-radius: 25px; 
+    padding: 35px 20px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 3px solid transparent;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-align: center; 
+    height: 100%; 
+    box-sizing: border-box; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+  }
+  
+  .card-link:hover .card::before {
+    left: 100%;
+  }
+  
+  .card:hover { 
+    transform: translateY(-15px) rotateX(5deg);
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(255, 107, 157, 0.25);
+  }
+  
+  .card-number {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary), var(--warm));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
+  }
+  
+  .card-emoji {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: block;
+    transition: transform 0.3s;
+  }
+  
+  .card-link:hover .card-emoji {
+    transform: scale(1.2) rotate(10deg);
+  }
+  
+  .card-san { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 22px; 
+    font-weight: 700; 
+    margin: 0; 
+    color: var(--primary);
+    line-height: 1.4;
+    word-break: break-word;
+  }
+  
+  .card-english {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  
+  .no-results {
+    text-align: center;
+    width: 100%;
+    padding: 60px 20px;
+    font-weight: 700;
+    color: #95a5a6;
+    font-size: 18px;
+    grid-column: 1 / -1;
+  }
+  
+  .no-results-emoji {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: block;
+  }
+  
+  .story-count {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #7f8c8d;
+    font-weight: 600;
+  }
+  
+  /* Celebration animation */
+  @keyframes celebrate {
+    0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1) rotate(5deg); opacity: 1; }
+  }
+  
+  .card-link:nth-child(1) .card { animation: celebrate 0.6s ease-out 0.1s backwards; }
+  .card-link:nth-child(2) .card { animation: celebrate 0.6s ease-out 0.15s backwards; }
+  .card-link:nth-child(3) .card { animation: celebrate 0.6s ease-out 0.2s backwards; }
+  .card-link:nth-child(4) .card { animation: celebrate 0.6s ease-out 0.25s backwards; }
+  .card-link:nth-child(n+5) .card { animation: celebrate 0.6s ease-out 0.3s backwards; }
+</style>
+</head>
+<body>
+
+<div class="floating-emoji float-1">📚</div>
+<div class="floating-emoji float-2">✨</div>
+<div class="floating-emoji float-3">🌟</div>
+<div class="floating-emoji float-4">📖</div>
+
+<div id="library-view">
+  <div class="header">
+    <h1 class="title">📚 Sanskrit Tales 🌟</h1>
+    <p class="subtitle">Magical Stories for Kids</p>
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-bar" placeholder="🔍 Find your story..." onkeyup="filterStories()">
+    </div>
+  </div>
+  <div class="grid" id="storyGrid"></div>
+  <div class="story-count" id="storyCount"></div>
+</div>
+
+<script>
+// STORY DATA WITH EMOJIS
+const storyData = [
+  { filename: "अङ्गुलीयकम् (The Ring).html", title: "अङ्गुलीयकम्", english: "The Ring", emoji: "💍" },
+  { filename: "उद्यमस्य फलम् (Fruit of Hard Work).html", title: "उद्यमस्य फलम्", english: "Fruit of Hard Work", emoji: "🌱" },
+  { filename: "कपोतराजः (The King of Doves).html", title: "कपोतराजः", english: "The King of Doves", emoji: "🕊️" },
+  { filename: "काकस्य उपायः (The Crow's Idea).html", title: "काकस्य उपायः", english: "The Crow's Idea", emoji: "🐦" },
+  { filename: "क्षमा-शस्त्रम् (The Weapon of Forgiveness).html", title: "क्षमा-शस्त्रम्", english: "The Weapon of Forgiveness", emoji: "🤝" },
+  { filename: "चतुरः शृगालः (The Clever Jackal).html", title: "चतुरः शृगालः", english: "The Clever Jackal", emoji: "🦊" },
+  { filename: "परोपकारी वृक्षः (The Giving Tree).html", title: "परोपकारी वृक्षः", english: "The Giving Tree", emoji: "🌳" },
+  { filename: "पिपासितः काकः (The Thirsty Crow).html", title: "पिपासितः काकः", english: "The Thirsty Crow", emoji: "💧" },
+  { filename: "मूर्खः मित्रम् (The Foolish Friend).html", title: "मूर्खः मित्रम्", english: "The Foolish Friend", emoji: "👥" },
+  { filename: "लोभी श्वानः (The Greedy Dog).html", title: "लोभी श्वानः", english: "The Greedy Dog", emoji: "🐕" },
+  { filename: "विद्या-धनम् (The Wealth of Knowledge).html", title: "विद्या-धनम्", english: "The Wealth of Knowledge", emoji: "🧠" },
+  { filename: "सिंहः मूषकः च (The Lion and the Mouse).html", title: "सिंहः मूषकः च", english: "The Lion and the Mouse", emoji: "🦁" }
+];
+
+// Instantly build the cards when the page loads
+renderCards(storyData);
+updateStoryCount(storyData.length);
+
+function renderCards(dataToRender) {
+  const grid = document.getElementById("storyGrid");
+  grid.innerHTML = "";
+  
+  if (dataToRender.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results">
+        <span class="no-results-emoji">🔍</span>
+        <p>Hmm, couldn't find that story!</p>
+        <p style="font-size: 13px; margin-top: 10px;">Try searching for different keywords</p>
+      </div>
+    `;
+    updateStoryCount(0);
+    return;
+  }
+
+  dataToRender.forEach((story, index) => {
+    const anchor = document.createElement("a");
+    anchor.href = story.filename;
+    anchor.target = "_blank"; 
+    anchor.className = "card-link";
+    
+    anchor.innerHTML = `
+      <div class="card">
+        <div class="card-number">${index + 1}</div>
+        <span class="card-emoji">${story.emoji}</span>
+        <h3 class="card-san">${story.title}</h3>
+        <p class="card-english">${story.english}</p>
+      </div>
+    `;
+    grid.appendChild(anchor);
+  });
+  
+  updateStoryCount(dataToRender.length);
+}
+
+function filterStories() {
+  const query = document.getElementById("searchInput").value.toLowerCase();
+  const filtered = storyData.filter(story => 
+    story.title.toLowerCase().includes(query) ||
+    story.english.toLowerCase().includes(query) ||
+    story.filename.toLowerCase().includes(query)
+  );
+  renderCards(filtered);
+}
+
+function updateStoryCount(count) {
+  const countDiv = document.getElementById("storyCount");
+  if (count > 0) {
+    countDiv.textContent = `📚 Found ${count} ${count === 1 ? 'story' : 'stories'}`;
+  } else {
+    countDiv.textContent = "";
+  }
+}
+</script>
+</body>
+</html>
